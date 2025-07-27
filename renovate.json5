@@ -3,6 +3,6 @@
   "platform": "github",
   "semanticCommits": true,
   "labels": ["renovate"],
-  "repositories": ["dc-tec/nixvim"],
+  "repositories": ["MiyakoMeow/nixvim-config"],
   "extends": ["config:recommended"],
 }
