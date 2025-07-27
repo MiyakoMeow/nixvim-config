@@ -83,20 +83,15 @@ jobs:
         run: |
           set +e  # Don't exit immediately on error
           # Run the build and capture output
-          OUTPUT=$(nix build .# 2>&1)
-          BUILD_EXIT_CODE=$?
-          echo "build_output<<EOF" >> $GITHUB_ENV
-          echo "$OUTPUT" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
-          # Check if build succeeded
+          nix build .# 2>&1 | tee build.log
+          BUILD_EXIT_CODE=${PIPESTATUS[0]:-$?}
           if [ $BUILD_EXIT_CODE -eq 0 ]; then
             echo "build_status=success" >> $GITHUB_ENV
           else
             echo "build_status=failure" >> $GITHUB_ENV
             # Ensure the error is visible in the logs
             echo "::error::Build failed with exit code $BUILD_EXIT_CODE"
-            echo "$OUTPUT"
+            cat build.log
           fi
 
       - name: Create Issue on Build Failure
@@ -104,8 +99,9 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const fs = require('fs');
             const os = '${{ matrix.os }}';
-            const buildOutput = process.env.build_output;
+            const buildOutput = fs.readFileSync('build.log', 'utf8');
             const isUpdate = '${{ needs.update-flake.outputs.update_available }}' === 'true';
 
             // Extract warnings and errors from build output
