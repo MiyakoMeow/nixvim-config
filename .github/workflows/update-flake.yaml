@@ -16,23 +16,23 @@ jobs:
       contents: write
     outputs:
       update_available: ${{ steps.check_updates.outputs.update_available }}
-    
+
     steps:
       - name: Repository Checkout
         uses: actions/checkout@v4
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v18
+        uses: DeterminateSystems/nix-installer-action@v19
 
       - name: Check for Updates
         id: check_updates
         run: |
           # Create a temporary copy of flake.lock
           cp flake.lock flake.lock.backup
-          
+
           # Try to update flake.lock
           nix flake update
-          
+
           # Check if there are differences
           if ! cmp -s flake.lock flake.lock.backup; then
             echo "update_available=true" >> "$GITHUB_OUTPUT"
@@ -64,9 +64,9 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
       fail-fast: false # Continue with other jobs even if one fails
-    
+
     runs-on: ${{ matrix.os }}
-    
+
     steps:
       - name: Repository Checkout
         uses: actions/checkout@v4
@@ -74,7 +74,7 @@ jobs:
           ref: update_flake_lock_action
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v18
+        uses: DeterminateSystems/nix-installer-action@v19
 
       - name: Build and Test Configuration
         id: build
@@ -87,7 +87,7 @@ jobs:
           echo "build_output<<EOF" >> $GITHUB_ENV
           echo "$OUTPUT" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          
+
           # Check if build succeeded
           if [ $BUILD_EXIT_CODE -eq 0 ]; then
             echo "build_status=success" >> $GITHUB_ENV
@@ -106,20 +106,20 @@ jobs:
             const os = '${{ matrix.os }}';
             const buildOutput = process.env.build_output;
             const isUpdate = '${{ needs.update-flake.outputs.update_available }}' === 'true';
-            
+
             // Extract warnings and errors from build output
             const warnings = buildOutput.match(/evaluation warning:[^\n]+/g) || [];
             const errors = buildOutput.match(/error:[^\n]+/g) || [];
-            
+
             // Create a summary section
             const summary = [
               warnings.length > 0 ? `${warnings.length} evaluation warnings` : '',
               errors.length > 0 ? `${errors.length} errors` : ''
             ].filter(Boolean).join(' and ');
-            
+
             // Get repository information from context
             const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/');
-            
+
             await github.rest.issues.create({
               owner,
               repo,
