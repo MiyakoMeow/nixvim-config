@@ -49,7 +49,6 @@ jobs:
           nix-options: --debug --log-format raw
           token: ${{ secrets.FLAKE_TOKEN }}
           pr-title: "deps: update flake.lock"
-          pr-branch: deps/update-flake-lock
           pr-labels: |
             dependencies
             automated
@@ -72,7 +71,7 @@ jobs:
       - name: Repository Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ needs.update-flake.outputs.update_available == 'true' && 'deps/update-flake-lock' || 'main' }}
+          ref: ${{ needs.update-flake.outputs.update_available == 'true' && 'update_flake_lock_action' || 'main' }}
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v19
