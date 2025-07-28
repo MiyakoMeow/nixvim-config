@@ -64,7 +64,10 @@
           formatter = pkgs.nixfmt-rfc-style;
 
           packages = {
+            # For "nix run ."
             default = nvim;
+            # Export Package
+            neovim = nvim;
           };
 
           devShells = {
