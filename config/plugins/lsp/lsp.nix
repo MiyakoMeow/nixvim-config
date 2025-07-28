@@ -10,6 +10,12 @@
     helm = {
       enable = true;
     };
+    rustaceanvim = {
+      enable = true;
+      lazyLoad = {
+        enable = true;
+      };
+    };
     lsp = {
       enable = true;
       inlayHints = true;
