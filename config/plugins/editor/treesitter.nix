@@ -9,7 +9,7 @@
       indent.enable = true;
       highlight.enable = true;
       incremental_selection.enable = true;
-      query_linter = { enable = true };
+      query_linter = { enable = true; };
       rainbow = {
         enable = true;
         # disable = { "jsx"; "cpp" }; list of languages you want to disable the plugin for
