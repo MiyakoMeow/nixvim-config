@@ -49,8 +49,8 @@
           };
           nvim = (nixvim'.makeNixvimWithModule nixvimModule).overrideAttrs (
             oldAttrs: {
-              buildInputs = oldAttrs.buildInputs or []
-                ++ with pkgs; [alejandra];
+              buildInputs = (oldAttrs.buildInputs or [])
+                ++ (with pkgs; [alejandra]);
             }
           );
         in
