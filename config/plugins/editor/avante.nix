@@ -1,5 +1,5 @@
 {
-  plugin.avante = {
+  plugins.avante = {
     enable = true;
     settings = {
       mappings = {
