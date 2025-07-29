@@ -63,6 +63,24 @@
 
     {
       mode = "n";
+      key = "<A-S-l>";
+      action = "<cmd>BufferLineMoveNext<cr>";
+      options = {
+        desc = "Move this buffer to next place";
+      };
+    }
+
+    {
+      mode = "n";
+      key = "<A-S-h>";
+      action = "<cmd>BufferLineMovePrev<cr>";
+      options = {
+        desc = "Move this buffer to previous place";
+      };
+    }
+
+    {
+      mode = "n";
       key = "<leader>bd";
       action = "<cmd>bdelete<cr>";
       options = {

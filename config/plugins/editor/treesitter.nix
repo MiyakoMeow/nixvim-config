@@ -3,8 +3,10 @@
   plugins.treesitter = {
     enable = true;
     settings = {
+      ensure_installed = "all";
       indent.enable = true;
       highlight.enable = true;
+      incremental_selection.enable = true;
     };
     folding = false;
     nixvimInjections = true;

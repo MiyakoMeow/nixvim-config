@@ -26,6 +26,7 @@ _: {
     ./plugins/editor/indent-blankline.nix
     ./plugins/editor/todo-comments.nix
     ./plugins/editor/navic.nix
+    ./plugins/editor/avante.nix
 
     # UI plugins
     ./plugins/ui/bufferline.nix
@@ -43,7 +44,7 @@ _: {
 
     # Utils
     ./plugins/utils/telescope.nix
-    ./plugins/utils/whichkey.nix
+    ./plugins/utils/which-key.nix
     ./plugins/utils/flash.nix
     ./plugins/utils/extra_plugins.nix
     ./plugins/utils/mini.nix
