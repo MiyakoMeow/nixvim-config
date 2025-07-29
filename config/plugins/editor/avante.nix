@@ -16,10 +16,10 @@
           prev = "[[";
         };
       };
-      provider = "deepseek";
-      auto_suggestions_provider = "deepseek";
+      provider = "openai";
+      auto_suggestions_provider = "openai";
       providers = {
-        deepseek = {
+        openai = {
           endpoint = "https://api.deepseek.com/v1";
           model = "deepseek-coder"; # your desired model (or use gpt-4o, etc.)
           extra_request_body = {
