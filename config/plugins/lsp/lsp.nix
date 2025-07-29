@@ -29,7 +29,7 @@
             settings = {
               "nil" = {
                 formatting = {
-                  command = { "alejandra" }; # 指定格式化命令
+                  command = [ "alejandra" ]; # 指定格式化命令
                 };
               };
             },
