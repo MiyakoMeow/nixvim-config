@@ -47,7 +47,12 @@
               # inherit (inputs) foo;
             };
           };
-          nvim = nixvim'.makeNixvimWithModule nixvimModule;
+          nvim = (nixvim'.makeNixvimWithModule nixvimModule).overrideAttrs (
+            oldAttrs: {
+              buildInputs = oldAttrs.buildInputs or []
+                ++ with pkgs; [alejandra];
+            }
+          );
         in
         {
           checks = {

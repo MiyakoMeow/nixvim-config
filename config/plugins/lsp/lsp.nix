@@ -12,9 +12,6 @@
     };
     rustaceanvim = {
       enable = true;
-      lazyLoad = {
-        enable = true;
-      };
     };
     lsp = {
       enable = true;
@@ -28,6 +25,15 @@
         };
         nil_ls = {
           enable = true;
+          extraOptions = {
+            settings = {
+              ["nil"] = {
+                formatting = {
+                  command = { "alejandra" }; # 指定格式化命令
+                };
+              };
+            },
+          };
         };
         ts_ls = {
           enable = true;
