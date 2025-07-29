@@ -27,7 +27,7 @@
           enable = true;
           extraOptions = {
             settings = {
-              ["nil"] = {
+              "nil" = {
                 formatting = {
                   command = { "alejandra" }; # 指定格式化命令
                 };
