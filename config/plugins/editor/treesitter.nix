@@ -3,10 +3,21 @@
   plugins.treesitter = {
     enable = true;
     settings = {
-      ensure_installed = "all";
+      ensure_installed = ["rust" "python" "c" "cpp" "json" "yaml" "toml" "nix" "javascript" "typescript" "sql"];
+      sync_install = true;
+      autotag.enable = true;
       indent.enable = true;
       highlight.enable = true;
       incremental_selection.enable = true;
+      query_linter = { enable = true };
+      rainbow = {
+        enable = true;
+        # disable = { "jsx"; "cpp" }; list of languages you want to disable the plugin for
+        extended_mode = true; # Also highlight non-bracket delimiters like html tags; boolean or table: lang -> boolean
+        max_file_lines = nil; # Do not enable for files with more than n lines; int
+        # colors = {}; # table of hex strings
+        # termcolors = {} # table of colour name strings
+      };
     };
     folding = false;
     nixvimInjections = true;
