@@ -1,5 +1,5 @@
 {
-  plugins.flash = {
+  plugins.lualine = {
     enable = true;
   };
 }

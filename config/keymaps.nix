@@ -269,62 +269,6 @@
     }
     {
       mode = "n";
-      key = "<leader>cd";
-      action = "vim.diagnostic.open_float";
-      options = {
-        desc = "Line Diagnostics";
-      };
-    }
-    {
-      mode = "n";
-      key = "]d";
-      action = "diagnostic_goto(true)";
-      options = {
-        desc = "Next Diagnostic";
-      };
-    }
-    {
-      mode = "n";
-      key = "[d";
-      action = "diagnostic_goto(false)";
-      options = {
-        desc = "Prev Diagnostic";
-      };
-    }
-    {
-      mode = "n";
-      key = "]e";
-      action = "diagnostic_goto(true 'ERROR')";
-      options = {
-        desc = "Next Error";
-      };
-    }
-    {
-      mode = "n";
-      key = "[e";
-      action = "diagnostic_goto(false 'ERROR')";
-      options = {
-        desc = "Prev Error";
-      };
-    }
-    {
-      mode = "n";
-      key = "]w";
-      action = "diagnostic_goto(true 'WARN')";
-      options = {
-        desc = "Next Warning";
-      };
-    }
-    {
-      mode = "n";
-      key = "[w";
-      action = "diagnostic_goto(false 'WARN')";
-      options = {
-        desc = "Prev Warning";
-      };
-    }
-    {
-      mode = "n";
       key = "<leader>qq";
       action = "<cmd>qa<cr>";
       options = {
@@ -380,14 +324,6 @@
       };
     }
     {
-      mode = "t";
-      key = "<C-/>";
-      action = "<cmd>close<cr>";
-      options = {
-        desc = "Hide Terminal";
-      };
-    }
-    {
       mode = "n";
       key = "<leader>ww";
       action = "<C-W>p";
@@ -439,54 +375,6 @@
       options = {
         desc = "Split Window Right";
         remap = true;
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader><tab>l";
-      action = "<cmd>tablast<cr>";
-      options = {
-        desc = "Last Tab";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader><tab>f";
-      action = "<cmd>tabfirst<cr>";
-      options = {
-        desc = "First Tab";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader><tab><tab>";
-      action = "<cmd>tabnew<cr>";
-      options = {
-        desc = "New Tab";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader><tab>]";
-      action = "<cmd>tabnext<cr>";
-      options = {
-        desc = "Next Tab";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader><tab>d";
-      action = "<cmd>tabclose<cr>";
-      options = {
-        desc = "Close Tab";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader><tab>[";
-      action = "<cmd>tabprevious<cr>";
-      options = {
-        desc = "Previous Tab";
       };
     }
   ];

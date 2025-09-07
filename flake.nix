@@ -7,9 +7,6 @@
     nixvim = {
       url = "github:nix-community/nixvim";
     };
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-    };
   };
 
   outputs =
@@ -17,7 +14,6 @@
       nixpkgs,
       nixvim,
       flake-parts,
-      pre-commit-hooks,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -47,26 +43,16 @@
               # inherit (inputs) foo;
             };
           };
-          nvim = (nixvim'.makeNixvimWithModule nixvimModule).overrideAttrs (
-            oldAttrs: {
-              buildInputs = (oldAttrs.buildInputs or [])
-                ++ (with pkgs; [alejandra]);
-            }
-          );
+          nvim = (nixvim'.makeNixvimWithModule nixvimModule).overrideAttrs (oldAttrs: {
+            buildInputs = (oldAttrs.buildInputs or [ ]) ++ (with pkgs; [ alejandra ]);
+          });
         in
         {
           checks = {
             default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
-            pre-commit-check = pre-commit-hooks.lib.${system}.run {
-              src = ./.;
-              hooks = {
-                statix.enable = true;
-                nixfmt-rfc-style.enable = true;
-              };
-            };
           };
 
-          formatter = pkgs.nixfmt-rfc-style;
+          formatter = pkgs.nixfmt-tree;
 
           packages = {
             # For "nix run ."
@@ -76,7 +62,7 @@
           };
 
           devShells = {
-            default = with pkgs; mkShell { inherit (self'.checks.pre-commit-check) shellHook; };
+            default = with pkgs; mkShell { };
           };
         };
     };

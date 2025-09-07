@@ -10,6 +10,9 @@
         };
       };
       surround = { };
+      icons = { };
     };
+
+    mockDevIcons = true;
   };
 }

@@ -12,50 +12,156 @@
     };
     rustaceanvim = {
       enable = true;
+      settings = {
+        server = {
+          default_settings = {
+            rust-analyzer = {
+              checkOnSave = true;
+              check = {
+                command = "clippy";
+              };
+              diagnostics = {
+                enable = true;
+              };
+              cargo = {
+                allFeatures = true;
+              };
+              procMacro = {
+                enable = true;
+              };
+            };
+          };
+        };
+      };
     };
     lsp = {
       enable = true;
       inlayHints = true;
       servers = {
-        html = {
+        # C/C++
+        clangd = {
           enable = true;
+          cmd = [ "clangd" ];
+          filetypes = [
+            "c"
+            "cpp"
+            "objc"
+            "objcpp"
+          ];
         };
-        lua_ls = {
+
+        # Nix
+        nixd = {
           enable = true;
-        };
-        nil_ls = {
-          enable = true;
-          extraOptions = {
-            settings = {
-              "nil" = {
-                formatting = {
-                  command = [ "alejandra" ]; # 指定格式化命令
+          cmd = [ "nixd" ];
+          filetypes = [ "nix" ];
+          settings = {
+            nixd = {
+              formatting = {
+                command = [ "nixfmt" ];
+              };
+              options = {
+                nixos = {
+                  expr = "(builtins.getFlake \"/home/miyakomeow/Codes/nixvim-config\").nixosConfigurations.default.options";
+                };
+                home-manager = {
+                  expr = "(builtins.getFlake \"/home/miyakomeow/Codes/nixvim-config\").homeConfigurations.default.options";
                 };
               };
             };
           };
         };
+
+        # Lua
+        lua_ls = {
+          enable = true;
+          cmd = [ "lua-language-server" ];
+          filetypes = [ "lua" ];
+          settings = {
+            Lua = {
+              runtime = {
+                version = "LuaJIT";
+              };
+              diagnostics = {
+                globals = [ "vim" ];
+              };
+              workspace = {
+                library = [
+                  "\${3rd}/luv/library"
+                  "\${3rd}/busted/library"
+                ];
+                checkThirdParty = false;
+              };
+              telemetry = {
+                enable = false;
+              };
+            };
+          };
+        };
+
+        # Vim script
+        vimls = {
+          enable = true;
+          cmd = [ "vim-language-server" ];
+          filetypes = [ "vim" ];
+        };
+
+        # Python
+        pyright = {
+          enable = true;
+          cmd = [
+            "pyright-langserver"
+            "--stdio"
+          ];
+          filetypes = [ "python" ];
+          settings = {
+            python = {
+              analysis = {
+                autoSearchPaths = true;
+                diagnosticMode = "workspace";
+                useLibraryCodeForTypes = true;
+              };
+            };
+          };
+        };
+
+        # Additional LSP servers
+        html = {
+          enable = true;
+        };
+
         ts_ls = {
           enable = true;
         };
+
         marksman = {
           enable = true;
         };
-        pyright = {
-          enable = true;
-        };
+
         gopls = {
           enable = true;
         };
+
         terraformls = {
           enable = true;
         };
+
         ansiblels = {
           enable = true;
         };
+
         jsonls = {
           enable = true;
+          cmd = [
+            "vscode-json-language-server"
+            "--stdio"
+          ];
+          filetypes = [
+            "json"
+            "jsonc"
+          ];
         };
+
         helm_ls = {
           enable = true;
           extraOptions = {
@@ -68,13 +174,14 @@
             };
           };
         };
+
         yamlls = {
           enable = true;
           extraOptions = {
             settings = {
               yaml = {
                 schemas = {
-                  kubernetes = "'*.yaml";
+                  kubernetes = "*.yaml";
                   "http://json.schemastore.org/github-workflow" = ".github/workflows/*";
                   "http://json.schemastore.org/github-action" = ".github/action.{yml,yaml}";
                   "http://json.schemastore.org/ansible-stable-2.9" = "roles/tasks/*.{yml,yaml}";
@@ -82,12 +189,26 @@
                   "http://json.schemastore.org/ansible-playbook" = "*play*.{yml,yaml}";
                   "http://json.schemastore.org/chart" = "Chart.{yml,yaml}";
                   "https://json.schemastore.org/dependabot-v2" = ".github/dependabot.{yml,yaml}";
-                  "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json" = "*docker-compose*.{yml,yaml}";
-                  "https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json" = "*flow*.{yml,yaml}";
+                  "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json" =
+                    "*docker-compose*.{yml,yaml}";
+                  "https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json" =
+                    "*flow*.{yml,yaml}";
                 };
               };
             };
           };
+        };
+
+        bashls = {
+          enable = true;
+          cmd = [
+            "bash-language-server"
+            "start"
+          ];
+          filetypes = [
+            "sh"
+            "bash"
+          ];
         };
       };
 
@@ -126,6 +247,18 @@
             action = "rename";
             desc = "Rename";
           };
+          "<leader>ca" = {
+            action = "code_action";
+            desc = "Code Action";
+          };
+          "<leader>cf" = {
+            action = "format";
+            desc = "Format";
+          };
+          "<leader>ls" = {
+            action = "signature_help";
+            desc = "Signature Help";
+          };
         };
         diagnostic = {
           "<leader>cd" = {
@@ -140,10 +273,27 @@
             action = "goto_prev";
             desc = "Previous Diagnostic";
           };
+          "[e" = {
+            action = "goto_next";
+            desc = "severity = vim.diagnostic.severity.ERROR";
+          };
+          "]e" = {
+            action = "goto_prev";
+            desc = "severity = vim.diagnostic.severity.ERROR";
+          };
+          "[w" = {
+            action = "goto_next";
+            desc = "severity = vim.diagnostic.severity.WARN";
+          };
+          "]w" = {
+            action = "goto_prev";
+            desc = "severity = vim.diagnostic.severity.WARN";
+          };
         };
       };
     };
   };
+
   extraPlugins = with pkgs.vimPlugins; [
     ansible-vim
   ];
@@ -170,5 +320,17 @@
     require('lspconfig.ui.windows').default_options = {
       border = _border
     }
+
+    -- LSP UI enhancements
+    local signs = {
+      Error = "󰅚 ",
+      Warn = "󰀪 ",
+      Hint = "󰌶 ",
+      Info = "󰋽 "
+    }
+    for type, icon in pairs(signs) do
+      local hl = "DiagnosticSign" .. type
+      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+    end
   '';
 }
