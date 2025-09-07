@@ -7,7 +7,24 @@
         enabled = true;
       };
       dashboard = {
-        enabled = false;
+        enabled = true;
+        sections = [
+          {
+            section = "header";
+            align = "center";
+            padding = 1;
+          }
+          {
+            section = "terminal";
+            cmd = "pwd";
+            height = 1;
+            padding = 1;
+          }
+          {
+            section = "keys";
+            padding = 1;
+          }
+        ];
       };
       explorer = {
         enabled = true;
@@ -347,6 +364,12 @@
       key = "<leader>bd";
       action.__raw = "function() Snacks.bufdelete() end";
       options.desc = "Delete Buffer";
+    }
+    {
+      mode = "n";
+      key = "<leader>d";
+      action.__raw = "function() Snacks.dashboard() end";
+      options.desc = "Dashboard";
     }
     {
       mode = "n";
