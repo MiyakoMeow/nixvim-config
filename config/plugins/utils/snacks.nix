@@ -367,7 +367,7 @@
     }
     {
       mode = "n";
-      key = "<leader>d";
+      key = "<leader>qd";
       action.__raw = "function() Snacks.dashboard() end";
       options.desc = "Dashboard";
     }
