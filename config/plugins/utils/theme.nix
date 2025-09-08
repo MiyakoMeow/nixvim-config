@@ -8,6 +8,7 @@
         bufferline = true;
         dap = true;
         fzf = true;
+        gitsigns = true;
         mini = true;
         rainbow = true;
         snacks = true;
