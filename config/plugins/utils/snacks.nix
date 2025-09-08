@@ -1,4 +1,7 @@
 {
+  # Disable snacks scroll animations globally
+  globals.snacks_scroll = false;
+
   plugins.snacks = {
     enable = true;
 
