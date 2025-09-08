@@ -66,5 +66,6 @@ in
     ./keymaps.nix
     ./auto_cmds.nix
     ./file_types.nix
-  ] ++ finalImports;
+  ]
+  ++ finalImports;
 }
