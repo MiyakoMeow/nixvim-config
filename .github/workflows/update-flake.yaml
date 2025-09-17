@@ -125,9 +125,10 @@ jobs:
             const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/');
 
             // Truncate build output to avoid GitHub's 65536 character limit
+            // Take the last part of the log as it contains the most important error information
             const maxBuildOutputLength = 30000; // Leave room for other content
             const truncatedBuildOutput = buildOutput.length > maxBuildOutputLength 
-              ? buildOutput.substring(0, maxBuildOutputLength) + '\n\n... (truncated, see full log in workflow artifacts)'
+              ? '... (truncated, see full log in workflow artifacts)\n\n' + buildOutput.substring(buildOutput.length - maxBuildOutputLength)
               : buildOutput;
 
             // Create a more concise issue body
