@@ -93,6 +93,14 @@ jobs:
             cat build.log
           fi
 
+      - name: Upload Build Log
+        if: env.build_status == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log-${{ matrix.os }}
+          path: build.log
+          retention-days: 30
+
       - name: Create Issue on Build Failure
         if: env.build_status == 'failure'
         uses: actions/github-script@v7
@@ -116,32 +124,40 @@ jobs:
             // Get repository information from context
             const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/');
 
+            // Truncate build output to avoid GitHub's 65536 character limit
+            const maxBuildOutputLength = 30000; // Leave room for other content
+            const truncatedBuildOutput = buildOutput.length > maxBuildOutputLength 
+              ? buildOutput.substring(0, maxBuildOutputLength) + '\n\n... (truncated, see full log in workflow artifacts)'
+              : buildOutput;
+
+            // Create a more concise issue body
+            let issueBody = 'Build failed during automated validation on ' + os + (isUpdate ? ' while testing dependency updates.' : '.') + '\n\n' +
+              (isUpdate ? 'This failure occurred on the dependency update branch `deps/update-flake-lock`.' : 'This failure occurred on the main branch.') + '\n\n' +
+              '### Summary\n' + summary + '\n\n';
+
+            if (warnings.length > 0) {
+              issueBody += '### Warnings (' + warnings.length + ' total)\n```\n' +
+                warnings.slice(0, 10).join('\n') + (warnings.length > 10 ? '\n... (truncated)' : '') + '\n```\n\n';
+            }
+
+            if (errors.length > 0) {
+              issueBody += '### Errors (' + errors.length + ' total)\n```\n' +
+                errors.slice(0, 10).join('\n') + (errors.length > 10 ? '\n... (truncated)' : '') + '\n```\n\n';
+            }
+
+            issueBody += '### Build Output\n<details>\n<summary>Click to expand (' + buildOutput.length + ' characters total)</summary>\n\n```\n' +
+              truncatedBuildOutput + '\n```\n</details>\n\n' +
+              '**Note:** Full build log is available as a workflow artifact named `build-log-' + os + '`. You can download it from the [workflow run artifacts](https://github.com/' + owner + '/' + repo + '/actions/runs/${{ github.run_id }}).\n\n' +
+              'Please review the build output and fix any issues.';
+
+            const labels = ['build-failure', 'bug'];
+            if (warnings.length > 0) labels.push('has-warnings');
+            if (errors.length > 0) labels.push('has-errors');
+
             await github.rest.issues.create({
               owner,
               repo,
-              title: `🔨 Build Failed on ${os}: ${summary}${isUpdate ? ' (Dependency Update)' : ''}`,
-              body: `Build failed during automated validation on ${os}${isUpdate ? ' while testing dependency updates.' : '.'}\n
-              ${isUpdate ? 'This failure occurred on the dependency update branch `deps/update-flake-lock`.' : 'This failure occurred on the main branch.'}\n
-              
-              ### Summary
-              ${summary}\n
-              
-              ${warnings.length > 0 ? `### Warnings\n\`\`\`\n${warnings.join('\n')}\n\`\`\`\n` : ''}
-              ${errors.length > 0 ? `### Errors\n\`\`\`\n${errors.join('\n')}\n\`\`\`\n` : ''}
-              
-              <details>
-              <summary>Build Output</summary>
-              
-              \`\`\`
-              ${buildOutput}
-              \`\`\`
-              </details>
-              
-              Please review the build output and fix any issues.`,
-              labels: [
-                'build-failure',
-                'bug',
-                ...(warnings.length > 0 ? ['has-warnings'] : []),
-                ...(errors.length > 0 ? ['has-errors'] : [])
-              ]
+              title: '🔨 Build Failed on ' + os + ': ' + summary + (isUpdate ? ' (Dependency Update)' : ''),
+              body: issueBody,
+              labels: labels
             });
