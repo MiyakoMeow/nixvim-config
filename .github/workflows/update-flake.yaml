@@ -158,7 +158,7 @@ jobs:
             await github.rest.issues.create({
               owner,
               repo,
-              title: '🔨 Build Failed on ' + os + ': ' + summary + (isUpdate ? ' (Dependency Update)' : ''),
+              title: 'Build Failed on ' + os + ': ' + summary + (isUpdate ? ' (Dependency Update)' : ''),
               body: issueBody,
               labels: labels
             });
