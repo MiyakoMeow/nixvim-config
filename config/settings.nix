@@ -10,8 +10,10 @@
     };
   };
 
-  options = {
+  config.opts = {
     mapleader = " ";
     maplocalleader = " ";
+    shiftwidth = 4;
+    tabstop = 4;
   };
 }
