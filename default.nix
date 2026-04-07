@@ -8,13 +8,15 @@ let
   pluginsDirExists = lib.pathExists ./plugins;
   langDirExists = lib.pathExists ./lang;
   configDirExists = lib.pathExists ./config;
+  keymapDirExists = lib.pathExists ./keymap;
 
   pluginFiles = if pluginsDirExists then lib.filesystem.listFilesRecursive ./plugins else [ ];
   langFiles = if langDirExists then lib.filesystem.listFilesRecursive ./lang else [ ];
   configFiles = if configDirExists then lib.filesystem.listFilesRecursive ./config else [ ];
+  keymapFiles = if keymapDirExists then lib.filesystem.listFilesRecursive ./keymap else [ ];
 
   nixFiles = lib.filter (file: lib.hasSuffix ".nix" (toString file)) (
-    pluginFiles ++ langFiles ++ configFiles
+    pluginFiles ++ langFiles ++ configFiles ++ keymapFiles
   );
 
   relativePaths = map (file: ./. + (lib.removePrefix (toString ./.) (toString file))) nixFiles;
