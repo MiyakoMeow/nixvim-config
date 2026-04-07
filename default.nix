@@ -1,25 +1,39 @@
-# This file provides a non-flake build interface using flake-compat
-# It automatically reads the flake.lock file to get the exact versions/hashes of dependencies
-
+{
+  lib,
+  pkgs,
+  nixvim,
+  system,
+}:
 let
-  # Fetch flake-compat with the exact version from flake.lock
-  lockFile = builtins.fromJSON (builtins.readFile ./flake.lock);
-  flakeCompatNode = lockFile.nodes."flake-compat";
+  pluginsDirExists = lib.pathExists ./plugins;
 
-  flake-compat = builtins.fetchTarball {
-    url = "https://github.com/${flakeCompatNode.original.owner}/${flakeCompatNode.original.repo}/archive/${flakeCompatNode.locked.rev}.tar.gz";
-    sha256 = flakeCompatNode.locked.narHash;
+  pluginFiles = if pluginsDirExists then lib.filesystem.listFilesRecursive ./plugins else [ ];
+
+  nixFiles = lib.filter (file: lib.hasSuffix ".nix" (toString file)) pluginFiles;
+
+  relativePaths = map (file: ./. + (lib.removePrefix (toString ./.) (toString file))) nixFiles;
+
+  nixvimLib = nixvim.lib.${system};
+  nixvim' = nixvim.legacyPackages.${system};
+
+  nixvimModule = {
+    inherit pkgs;
+    module = {
+      imports = relativePaths;
+    };
+    extraSpecialArgs = {
+    };
   };
 
-  # Import the flake using flake-compat
-  flake =
-    (import flake-compat {
-      src = ./.;
-    }).defaultNix;
-
-  # Get the current system
-  system = builtins.currentSystem;
-
+  nvim = (nixvim'.makeNixvimWithModule nixvimModule).overrideAttrs (oldAttrs: {
+    buildInputs = (oldAttrs.buildInputs or [ ]) ++ (with pkgs; [ alejandra ]);
+  });
 in
-# Return the default package from the flake
-flake.packages.${system}.default or flake.packages.${system}.neovim
+{
+  inherit nixvimModule;
+  lib = nixvimLib;
+  packages = {
+    default = nvim;
+    neovim = nvim;
+  };
+}
