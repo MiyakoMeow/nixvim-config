@@ -6,10 +6,12 @@
 }:
 let
   pluginsDirExists = lib.pathExists ./plugins;
+  langDirExists = lib.pathExists ./lang;
 
   pluginFiles = if pluginsDirExists then lib.filesystem.listFilesRecursive ./plugins else [ ];
+  langFiles = if langDirExists then lib.filesystem.listFilesRecursive ./lang else [ ];
 
-  nixFiles = lib.filter (file: lib.hasSuffix ".nix" (toString file)) pluginFiles;
+  nixFiles = lib.filter (file: lib.hasSuffix ".nix" (toString file)) (pluginFiles ++ langFiles);
 
   relativePaths = map (file: ./. + (lib.removePrefix (toString ./.) (toString file))) nixFiles;
 
