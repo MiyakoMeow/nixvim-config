@@ -62,7 +62,7 @@
     {
       mode = "n";
       key = "s";
-      action.__raw = "function() require('flash').jump({ search = { mode = 'fuzzy', case_insensitive = true } }) end";
+      action = "<cmd>lua require('flash').jump({ search = { mode = 'fuzzy', case_insensitive = true } })<cr>";
       options = {
         desc = "Flash Jump (Case Insensitive)";
         silent = true;
@@ -72,7 +72,7 @@
     {
       mode = "x";
       key = "s";
-      action.__raw = "function() require('flash').jump({ search = { mode = 'fuzzy', case_insensitive = true } }) end";
+      action = "<cmd>lua require('flash').jump({ search = { mode = 'fuzzy', case_insensitive = true } })<cr>";
       options = {
         desc = "Flash Jump (Case Insensitive)";
         silent = true;
@@ -82,7 +82,7 @@
     {
       mode = "n";
       key = "S";
-      action.__raw = "function() require('flash').jump({ search = { mode = 'fuzzy', case_insensitive = false } }) end";
+      action = "<cmd>lua require('flash').jump({ search = { mode = 'fuzzy', case_insensitive = false } })<cr>";
       options = {
         desc = "Flash Jump (Case Sensitive)";
         silent = true;
@@ -92,7 +92,7 @@
     {
       mode = "n";
       key = "<leader>st";
-      action.__raw = "function() require('flash').treesitter() end";
+      action = "<cmd>lua require('flash').treesitter()<cr>";
       options = {
         desc = "Flash Treesitter";
         silent = true;
@@ -102,7 +102,7 @@
     {
       mode = "o";
       key = "r";
-      action.__raw = "function() require('flash').remote() end";
+      action = "<cmd>lua require('flash').remote()<cr>";
       options = {
         desc = "Remote Flash";
         silent = true;
@@ -112,7 +112,7 @@
     {
       mode = "x";
       key = "R";
-      action.__raw = "function() require('flash').treesitter_search() end";
+      action = "<cmd>lua require('flash').treesitter_search()<cr>";
       options = {
         desc = "Treesitter Search";
         silent = true;
