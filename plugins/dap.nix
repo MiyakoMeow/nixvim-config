@@ -121,65 +121,6 @@
     enable = true;
   };
 
-  plugins.dap.configurations = {
-    c = [
-      {
-        name = "Launch file";
-        type = "codelldb";
-        request = "launch";
-        program.__raw = "function() return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file') end";
-        cwd.__raw = "function() return vim.fn.getcwd() end";
-        stopAtEntry = false;
-        externalConsole = false;
-      }
-    ];
-
-    cpp = [
-      {
-        name = "Launch file";
-        type = "codelldb";
-        request = "launch";
-        program.__raw = "function() return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file') end";
-        cwd.__raw = "function() return vim.fn.getcwd() end";
-        stopAtEntry = false;
-        externalConsole = false;
-      }
-    ];
-
-    python = [
-      {
-        type = "debugpy";
-        request = "launch";
-        name = "Launch file";
-        program.__raw = "function() return vim.fn.expand('%:p') end";
-        pythonPath.__raw = "function() return 'python' end";
-      }
-    ];
-
-    lua = [
-      {
-        name = "Current file (local-lua-debugger-vscode)";
-        type = "local-lua-debugger-vscode";
-        request = "launch";
-        cwd.__raw = "function() return vim.fn.getcwd() end";
-        program.__raw = "function() return vim.fn.expand('%:p') end";
-        args = [ ];
-      }
-    ];
-
-    nix = [
-      {
-        name = "Launch Nix executable";
-        type = "codelldb";
-        request = "launch";
-        program.__raw = "function() return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file') end";
-        cwd.__raw = "function() return vim.fn.getcwd() end";
-        stopAtEntry = false;
-        externalConsole = false;
-      }
-    ];
-  };
-
   keymaps = [
     {
       mode = "n";

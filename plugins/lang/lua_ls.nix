@@ -24,4 +24,15 @@
       };
     };
   };
+
+  plugins.dap.configurations.lua = [
+    {
+      name = "Current file (local-lua-debugger-vscode)";
+      type = "local-lua-debugger-vscode";
+      request = "launch";
+      cwd.__raw = "function() return vim.fn.getcwd() end";
+      program.__raw = "function() return vim.fn.expand('%:p') end";
+      args = [ ];
+    }
+  ];
 }
