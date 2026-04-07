@@ -6,10 +6,16 @@
 }:
 let
   pluginsDirExists = lib.pathExists ./plugins;
+  langDirExists = lib.pathExists ./lang;
+  configDirExists = lib.pathExists ./config;
 
   pluginFiles = if pluginsDirExists then lib.filesystem.listFilesRecursive ./plugins else [ ];
+  langFiles = if langDirExists then lib.filesystem.listFilesRecursive ./lang else [ ];
+  configFiles = if configDirExists then lib.filesystem.listFilesRecursive ./config else [ ];
 
-  nixFiles = lib.filter (file: lib.hasSuffix ".nix" (toString file)) pluginFiles;
+  nixFiles = lib.filter (file: lib.hasSuffix ".nix" (toString file)) (
+    pluginFiles ++ langFiles ++ configFiles
+  );
 
   relativePaths = map (file: ./. + (lib.removePrefix (toString ./.) (toString file))) nixFiles;
 
@@ -19,7 +25,7 @@ let
   nixvimModule = {
     inherit pkgs;
     module = {
-      imports = [ ./config/settings.nix ] ++ relativePaths;
+      imports = relativePaths;
     };
     extraSpecialArgs = {
     };
