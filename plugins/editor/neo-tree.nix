@@ -10,7 +10,7 @@
     {
       mode = "n";
       key = "<leader>e";
-      action = "<cmd>lua require('neo-tree.command').execute({ toggle = true })<cr>";
+      action = "<cmd>Neotree toggle<cr>";
       options = {
         desc = "Neo-tree";
       };
