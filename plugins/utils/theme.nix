@@ -12,6 +12,7 @@
         flash = true;
         fzf = true;
         gitsigns = true;
+        lazygit = true;
         lualine = true;
         mini = {
           enabled = true;
