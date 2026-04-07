@@ -54,6 +54,16 @@
       };
     }
 
+    # focus floating window
+    {
+      mode = "n";
+      key = "<leader>wf";
+      action = "<cmd>lua for _, w in ipairs(vim.api.nvim_list_wins()) do if vim.api.nvim_win_get_config(w).relative ~= '' then vim.api.nvim_set_current_win(w) end end<CR>";
+      options = {
+        desc = "Focus floating window";
+      };
+    }
+
     # window navigation with ctrl+hjkl
     {
       mode = [
