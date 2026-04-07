@@ -3,7 +3,6 @@
     enable = true;
     settings = {
       log_to_file = false;
-      logging.level = "error";
     };
   };
 
