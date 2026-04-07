@@ -11,8 +11,11 @@
   };
 
   config.opts = {
+    expandtab = true;
     shiftwidth = 4;
     tabstop = 4;
+    softtabstop = 0;
+    smarttab = true;
   };
 
   config.globals = {
