@@ -25,10 +25,20 @@ let
     };
   };
 
-  nixvimBin = (nixvim'.makeNixvimWithModule nixvimModule).overrideAttrs (oldAttrs: {
-    buildInputs = (oldAttrs.buildInputs or [ ]) ++ (with pkgs; [ alejandra ]);
-    pname = "nixvim";
-  });
+  nixvimWrapped = nixvim'.makeNixvimWithModule nixvimModule;
+
+  nixvimBin =
+    pkgs.runCommand "nixvim"
+      {
+        buildInputs = [ nixvimWrapped ];
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+        pname = "nixvim";
+      }
+      ''
+        mkdir -p $out/bin
+        makeWrapper ${nixvimWrapped}/bin/nvim $out/bin/nixvim
+        touch $out
+      '';
 in
 {
   inherit nixvimModule;
