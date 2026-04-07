@@ -19,7 +19,7 @@ let
   nixvimModule = {
     inherit pkgs;
     module = {
-      imports = relativePaths;
+      imports = [ ./config/settings.nix ] ++ relativePaths;
     };
     extraSpecialArgs = {
     };
