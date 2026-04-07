@@ -130,5 +130,21 @@
         desc = "Last Buffer";
       };
     }
+    {
+      mode = "n";
+      key = "<leader>dd";
+      action = "<cmd>bdelete<cr>";
+      options = {
+        desc = "Close Current Buffer";
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>do";
+      action = "<cmd>BufferLineCloseOthers<cr>";
+      options = {
+        desc = "Close Other Buffers";
+      };
+    }
   ];
 }
