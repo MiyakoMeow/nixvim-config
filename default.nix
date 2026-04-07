@@ -25,15 +25,16 @@ let
     };
   };
 
-  nvim = (nixvim'.makeNixvimWithModule nixvimModule).overrideAttrs (oldAttrs: {
+  nixvimBin = (nixvim'.makeNixvimWithModule nixvimModule).overrideAttrs (oldAttrs: {
     buildInputs = (oldAttrs.buildInputs or [ ]) ++ (with pkgs; [ alejandra ]);
+    pname = "nixvim";
   });
 in
 {
   inherit nixvimModule;
   lib = nixvimLib;
   packages = {
-    default = nvim;
-    neovim = nvim;
+    default = nixvimBin;
+    nixvim = nixvimBin;
   };
 }
