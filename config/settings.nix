@@ -8,16 +8,6 @@
         vim.fn.sign_define("diagnosticsignhint", { text = "󰌵", texthl = "diagnostichint", linehl = "", numhl = "" })
         vim.fn.sign_define("diagnosticsigninfo", { text = " ", texthl = "diagnosticinfo", linehl = "", numhl = "" })
 
-        -- Shell configuration
-        if os.execute("nu --version") == 0 then
-          -- nu
-          vim.opt.shell = "nu"
-          vim.opt.shellcmdflag = "-c"
-        elseif vim.fn.has("win32") == 1 and os.execute("pwsh --version") == 0 then
-          -- pwsh (Powershell 7)
-          vim.opt.shell = "pwsh.exe -NoLogo"
-          vim.opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
-        end
 
         -- Neovide configuration
         if vim.g.neovide then
