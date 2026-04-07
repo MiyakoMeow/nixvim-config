@@ -1,5 +1,0 @@
-{
-  autoGroups = { };
-
-  autoCmd = [ ];
-}

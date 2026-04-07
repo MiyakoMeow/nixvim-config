@@ -37,14 +37,22 @@
           ...
         }:
         let
+          pluginsDirExists = lib.pathExists ./plugins;
+
+          pluginFiles = if pluginsDirExists then lib.filesystem.listFilesRecursive ./plugins else [ ];
+
+          nixFiles = lib.filter (file: lib.hasSuffix ".nix" (toString file)) pluginFiles;
+
+          relativePaths = map (file: ./. + (lib.removePrefix (toString ./.) (toString file))) nixFiles;
+
           nixvimLib = nixvim.lib.${system};
           nixvim' = nixvim.legacyPackages.${system};
           nixvimModule = {
             inherit pkgs;
-            module = import ./config; # import the module directly
-            # You can use `extraSpecialArgs` to pass additional arguments to your module files
+            module = {
+              imports = relativePaths;
+            };
             extraSpecialArgs = {
-              # inherit (inputs) foo;
             };
           };
           nvim = (nixvim'.makeNixvimWithModule nixvimModule).overrideAttrs (oldAttrs: {
@@ -59,9 +67,7 @@
           formatter = pkgs.nixfmt-tree;
 
           packages = {
-            # For "nix run ."
             default = nvim;
-            # Export Package
             neovim = nvim;
           };
 
