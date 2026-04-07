@@ -11,9 +11,12 @@
   };
 
   config.opts = {
-    mapleader = " ";
-    maplocalleader = " ";
     shiftwidth = 4;
     tabstop = 4;
+  };
+
+  config.globals = {
+    mapleader = " ";
+    maplocalleader = " ";
   };
 }
