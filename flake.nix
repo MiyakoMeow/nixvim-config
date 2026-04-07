@@ -21,12 +21,7 @@
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [
-        "aarch64-linux"
-        "x86_64-linux"
-        "aarch64-darwin"
-        "x86_64-darwin"
-      ];
+      systems = nixpkgs.lib.systems.flakeExposed;
 
       perSystem =
         {
@@ -37,33 +32,23 @@
           ...
         }:
         let
-          nixvimLib = nixvim.lib.${system};
-          nixvim' = nixvim.legacyPackages.${system};
-          nixvimModule = {
-            inherit pkgs;
-            module = import ./config; # import the module directly
-            # You can use `extraSpecialArgs` to pass additional arguments to your module files
-            extraSpecialArgs = {
-              # inherit (inputs) foo;
-            };
+          nixvimConfig = import ./default.nix {
+            inherit
+              lib
+              pkgs
+              nixvim
+              system
+              ;
           };
-          nvim = (nixvim'.makeNixvimWithModule nixvimModule).overrideAttrs (oldAttrs: {
-            buildInputs = (oldAttrs.buildInputs or [ ]) ++ (with pkgs; [ alejandra ]);
-          });
         in
         {
           checks = {
-            default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
+            default = nixvimConfig.lib.check.mkTestDerivationFromNixvimModule nixvimConfig.nixvimModule;
           };
 
           formatter = pkgs.nixfmt-tree;
 
-          packages = {
-            # For "nix run ."
-            default = nvim;
-            # Export Package
-            neovim = nvim;
-          };
+          packages = nixvimConfig.packages;
 
           devShells = {
             default = with pkgs; mkShell { };
