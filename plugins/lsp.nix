@@ -36,9 +36,17 @@
             action = "type_definition";
             desc = "Type Definition";
           };
+          gy = {
+            action = "type_definition";
+            desc = "Goto Type Definition";
+          };
           K = {
             action = "hover";
             desc = "Hover";
+          };
+          gK = {
+            action = "signature_help";
+            desc = "Signature Help";
           };
           "<leader>cw" = {
             action = "workspace_symbol";

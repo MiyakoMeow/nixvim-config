@@ -20,6 +20,5 @@
 
   config.globals = {
     mapleader = " ";
-    maplocalleader = " ";
   };
 }
