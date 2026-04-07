@@ -7,4 +7,9 @@
     nvimRuntime = true;
     plugins = true;
   };
+
+  options = {
+    mapleader = " ";
+    maplocalleader = " ";
+  };
 }
