@@ -173,7 +173,7 @@
     {
       mode = "n";
       key = "<leader>dB";
-      action.__raw = "function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end";
+      action = "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>";
       options = {
         desc = "Conditional Breakpoint";
       };
@@ -196,14 +196,6 @@
     }
     {
       mode = "n";
-      key = "<leader>do";
-      action = "<cmd>DapStepOver<cr>";
-      options = {
-        desc = "Step Over";
-      };
-    }
-    {
-      mode = "n";
       key = "<leader>dO";
       action = "<cmd>DapStepOut<cr>";
       options = {
@@ -221,7 +213,7 @@
     {
       mode = "n";
       key = "<leader>dl";
-      action.__raw = "function() require('dap').run_last() end";
+      action = "<cmd>lua require('dap').run_last()<cr>";
       options = {
         desc = "Run Last";
       };
@@ -237,7 +229,7 @@
     {
       mode = "n";
       key = "<leader>du";
-      action.__raw = "function() require('dapui').toggle() end";
+      action = "<cmd>lua require('dapui').toggle()<cr>";
       options = {
         desc = "Toggle UI";
       };
@@ -245,7 +237,7 @@
     {
       mode = "n";
       key = "<leader>de";
-      action.__raw = "function() require('dapui').eval() end";
+      action = "<cmd>lua require('dapui').eval()<cr>";
       options = {
         desc = "Evaluate Expression";
       };
@@ -253,7 +245,7 @@
     {
       mode = "v";
       key = "<leader>de";
-      action.__raw = "function() require('dapui').eval() end";
+      action = "<cmd>lua require('dapui').eval()<cr>";
       options = {
         desc = "Evaluate Expression";
       };
@@ -261,7 +253,7 @@
     {
       mode = "n";
       key = "<leader>dE";
-      action.__raw = "function() require('dapui').eval(vim.fn.input('Expression: ')) end";
+      action = "<cmd>lua require('dapui').eval(vim.fn.input('Expression: '))<cr>";
       options = {
         desc = "Evaluate Input";
       };
