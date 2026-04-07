@@ -132,7 +132,7 @@
     }
     {
       mode = "n";
-      key = "<leader>dd";
+      key = "<leader>bd";
       action = "<cmd>bdelete<cr>";
       options = {
         desc = "Close Current Buffer";
