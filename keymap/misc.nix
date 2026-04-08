@@ -32,5 +32,13 @@
         silent = true;
       };
     }
+    {
+      mode = "n";
+      key = "K";
+      action = "<cmd>lua vim.lsp.buf.hover()<cr>";
+      options = {
+        desc = "Hover Documentation";
+      };
+    }
   ];
 }

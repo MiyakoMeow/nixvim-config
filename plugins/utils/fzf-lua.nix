@@ -16,6 +16,7 @@
       };
       "<leader>fh" = "help_tags";
       "<leader>fr" = "oldfiles";
+      "<leader>sr" = "live_grep";
     };
   };
 }
