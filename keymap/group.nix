@@ -34,14 +34,6 @@
     }
     {
       mode = "n";
-      key = "<leader>e";
-      action = "<Nop>";
-      options = {
-        desc = "+Explorer";
-      };
-    }
-    {
-      mode = "n";
       key = "<leader>f";
       action = "<Nop>";
       options = {
