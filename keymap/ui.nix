@@ -59,7 +59,7 @@
     {
       mode = "n";
       key = "<leader>ur";
-      action = "<cmd>nohlsearch<cr><cmd>diffupdate<cr><cmd>normal! <C-L><cr>";
+      action = "<cmd>nohlsearch<cr><cmd>diffupdate<cr><cmd>redraw!<cr>";
       options = {
         desc = "Redraw / Clear hlsearch";
       };

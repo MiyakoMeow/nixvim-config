@@ -99,7 +99,7 @@
     {
       mode = "n";
       key = "<leader>-";
-      action = "<C-W>s";
+      action = "<cmd>wincmd s<CR>";
       options = {
         desc = "Split Window Below";
       };
@@ -107,7 +107,7 @@
     {
       mode = "n";
       key = "<leader>|";
-      action = "<C-W>v";
+      action = "<cmd>wincmd v<CR>";
       options = {
         desc = "Split Window Right";
       };
@@ -115,7 +115,7 @@
     {
       mode = "n";
       key = "<leader>wd";
-      action = "<C-W>c";
+      action = "<cmd>close<CR>";
       options = {
         desc = "Delete Window";
       };
