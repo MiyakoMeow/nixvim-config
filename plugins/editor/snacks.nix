@@ -53,7 +53,6 @@
                 Snacks.gitbrowse()
               end'';
           }
-          (lib.mkIf config.plugins.lazy.enable { section = "startup"; })
         ];
       };
     };
