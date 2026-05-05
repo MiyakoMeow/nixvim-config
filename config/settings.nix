@@ -12,13 +12,6 @@
   };
 
   config.opts = {
-    # Indentation
-    expandtab = true;
-    shiftwidth = 4;
-    tabstop = 4;
-    softtabstop = 0;
-    smarttab = true;
-
     # Encoding
     fileencoding = "utf-8";
 
