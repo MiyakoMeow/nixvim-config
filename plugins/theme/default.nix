@@ -10,14 +10,12 @@
         dap_ui = true;
         fidget = true;
         flash = true;
-        fzf = true;
         gitsigns = true;
         lazygit = true;
         lualine = true;
         mini = {
           enabled = true;
         };
-        neotree = true;
         rainbow_delimiters = true;
         treesitter = true;
         treesitter_context = true;
