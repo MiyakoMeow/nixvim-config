@@ -1,6 +1,7 @@
 {
   config = {
     # Global indent defaults (spaces, 2-space fallback).
+    # Detection priority: editorconfig → sleuth (file content) → autoCmd → global default
     opts = {
       expandtab = true;
       shiftwidth = 2;
