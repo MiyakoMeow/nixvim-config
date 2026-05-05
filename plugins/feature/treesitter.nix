@@ -1,46 +1,25 @@
 { pkgs, ... }:
 {
-  plugins = {
-    treesitter = {
-      enable = true;
+  plugins.treesitter = {
+    enable = true;
 
-      settings = {
-        indent = {
-          enable = true;
-        };
-        highlight = {
-          enable = true;
-        };
-        incremental_selection = {
-          enable = true;
-        };
-      };
-
-      nixvimInjections = true;
-      grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
-    };
-
-    treesitter-context = {
-      enable = true;
-      settings = {
-        max_lines = 10;
-        multiline_threshold = 10;
-        trim_scope = "outer";
-        mode = "cursor";
-        separator = "─";
-      };
-    };
-
-    treesitter-textobjects = {
-      enable = true;
-      settings.select = {
+    settings = {
+      indent = {
         enable = true;
-        lookahead = true;
+      };
+      highlight = {
+        enable = true;
+      };
+      incremental_selection = {
+        enable = true;
       };
     };
 
-    rainbow-delimiters = {
-      enable = true;
-    };
+    nixvimInjections = true;
+    grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
+  };
+
+  plugins.rainbow-delimiters = {
+    enable = true;
   };
 }
