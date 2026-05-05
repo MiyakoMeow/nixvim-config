@@ -44,7 +44,7 @@
         restore = false;
         motion = false;
       };
-      # Modes configuration for different case sensitivity
+      # Modes configuration
       modes = {
         search = {
           # Default case insensitive
@@ -52,6 +52,12 @@
         };
         char = {
           enabled = false;
+        };
+        treesitter = {
+          jump = {
+            # Upstream default is true; override to never auto-jump
+            autojump = false;
+          };
         };
       };
     };
